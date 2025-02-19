@@ -11,7 +11,7 @@ const port = process.env.PORT || 5000;
 
 //middleware
 app.use(cors({
-    origin: 'https://client-app.com', // Replace with your client's URL
+    origin: 'https://dream-lounge-restaurant.web.app', // Replace with your client's URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }));
