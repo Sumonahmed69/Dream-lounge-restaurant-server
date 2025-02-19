@@ -10,11 +10,12 @@ const port = process.env.PORT || 5000;
 
 
 //middleware
-app.use(cors({
-    origin: 'https://dream-lounge-restaurant.web.app', // Replace with your client's URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
-}));
+
+
+
+
+// app.use(cors());
+app.use(cors("*"));
 app.use(express.json());
 
 
@@ -278,6 +279,7 @@ async function run() {
         app.get('/menu', async (req, res) => {
             const result = await menuCollection.find().toArray()
             res.send(result)
+            res.json({ message: "CORS is now enabled!" });
         })
 
 
@@ -353,8 +355,8 @@ async function run() {
 
 
         // Send a ping to confirm a successful connection
-        // await client.db("admin").command({ ping: 1 });
-        // console.log("Pinged your deployment. You successfully connected to MongoDB!");
+        await client.db("admin").command({ ping: 1 });
+        console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
         // Ensures that the client will close when you finish/error
         // await client.close();
