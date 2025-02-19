@@ -10,7 +10,11 @@ const port = process.env.PORT || 5000;
 
 
 //middleware
-app.use(cors())
+app.use(cors({
+    origin: 'https://client-app.com', // Replace with your client's URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+}));
 app.use(express.json());
 
 
@@ -159,7 +163,7 @@ async function run() {
 
 
         // using aggregate pipeline
-        app.get('/order-stats',verifyToken, verifyAdmin, async (req, res) => {
+        app.get('/order-stats', verifyToken, verifyAdmin, async (req, res) => {
             const result = await paymentCollection.aggregate([
                 {
                     $unwind: '$menuItemIds'
@@ -177,9 +181,9 @@ async function run() {
                         as: 'menuItems'
                     }
                 },
-                  {
+                {
                     $unwind: '$menuItems'
-                  },
+                },
                 {
                     $group: {
                         _id: '$menuItems.category',
